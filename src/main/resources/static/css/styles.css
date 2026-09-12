@@ -1,0 +1,11 @@
+body {
+    background-color: #f5f7fa;
+}
+
+.card {
+    border-radius: 0.75rem;
+}
+
+.table thead {
+    background-color: #eef2f7;
+}
