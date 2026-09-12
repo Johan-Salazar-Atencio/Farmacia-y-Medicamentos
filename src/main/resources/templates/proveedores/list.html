@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Proveedores - Farmacia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/layout :: nav}"></div>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Proveedores</h2>
+        <a class="btn btn-primary" href="/proveedores/nuevo">+ Nuevo proveedor</a>
+    </div>
+
+    <div th:replace="~{fragments/layout :: mensajes}"></div>
+
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+            <tr>
+                <th>RUC</th>
+                <th>Razón social</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="prov : ${proveedores}">
+                <td th:text="${prov.ruc}"></td>
+                <td th:text="${prov.razonSocial}"></td>
+                <td th:text="${prov.telefono}"></td>
+                <td th:text="${prov.email}"></td>
+                <td>
+                    <span class="badge" th:classappend="${prov.estado.name() == 'ACTIVO'} ? 'bg-success' : 'bg-secondary'"
+                          th:text="${prov.estado}"></span>
+                </td>
+                <td class="d-flex gap-1">
+                    <a class="btn btn-sm btn-outline-primary" th:href="@{/proveedores/{id}/editar(id=${prov.id})}">Editar</a>
+                    <form th:action="@{/proveedores/{id}/estado(id=${prov.id})}" method="post">
+                        <button type="submit" class="btn btn-sm btn-outline-warning">
+                            <span th:text="${prov.estado.name() == 'ACTIVO'} ? 'Desactivar' : 'Activar'"></span>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(proveedores)}">
+                <td colspan="6" class="text-center text-muted">Aún no hay proveedores registrados</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
