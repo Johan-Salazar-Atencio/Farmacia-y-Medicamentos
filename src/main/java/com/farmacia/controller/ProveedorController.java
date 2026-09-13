@@ -48,9 +48,9 @@ public class ProveedorController {
 
     @PostMapping("/guardar")
     public String guardar(@Valid @ModelAttribute("form") ProveedorForm form,
-                          BindingResult resultado,
-                          Model model,
-                          RedirectAttributes redirectAttributes) {
+                           BindingResult resultado,
+                           Model model,
+                           RedirectAttributes redirectAttributes) {
         if (resultado.hasErrors()) {
             return "proveedores/form";
         }

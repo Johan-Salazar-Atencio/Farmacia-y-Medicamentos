@@ -45,9 +45,9 @@ public class CategoriaMedicamentoController {
 
     @PostMapping("/guardar")
     public String guardar(@Valid @ModelAttribute("form") CategoriaMedicamentoForm form,
-                          BindingResult resultado,
-                          Model model,
-                          RedirectAttributes redirectAttributes) {
+                           BindingResult resultado,
+                           Model model,
+                           RedirectAttributes redirectAttributes) {
         if (resultado.hasErrors()) {
             return "categorias/form";
         }

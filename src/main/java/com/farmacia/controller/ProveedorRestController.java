@@ -34,8 +34,8 @@ public class ProveedorRestController {
         var proveedores = (estado == null)
                 ? proveedorService.listarTodos()
                 : proveedorService.listarTodos().stream()
-                .filter(p -> p.getEstado() == estado)
-                .toList();
+                    .filter(p -> p.getEstado() == estado)
+                    .toList();
 
         return proveedores.stream()
                 .map(ProveedorResponse::desde)
@@ -73,7 +73,7 @@ public class ProveedorRestController {
      */
     @PutMapping("/{id}")
     public ProveedorResponse actualizar(@PathVariable Long id,
-                                        @Valid @RequestBody ProveedorForm form) {
+                                         @Valid @RequestBody ProveedorForm form) {
         return ProveedorResponse.desde(proveedorService.actualizar(id, form));
     }
 

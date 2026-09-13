@@ -59,7 +59,20 @@ public class LoteMedicamentoRestController {
         return LoteMedicamentoResponse.desde(loteService.obtenerPorId(id));
     }
 
-
+    /**
+     * POST /api/lotes
+     * Body JSON:
+     * {
+     *   "medicamentoId": 1,
+     *   "proveedorId": 1,
+     *   "numeroLote": "L-2026-001",
+     *   "cantidad": 100,
+     *   "fechaVencimiento": "2027-06-30",
+     *   "precioCompra": 3.20
+     * }
+     * Nota: medicamentoId y proveedorId deben existir. fechaVencimiento debe ser
+     * futura (RF regla 2). Al registrar, suma 'cantidad' al stock del medicamento.
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public LoteMedicamentoResponse registrar(@Valid @RequestBody LoteMedicamentoForm form) {
