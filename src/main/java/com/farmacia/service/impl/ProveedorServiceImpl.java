@@ -43,7 +43,7 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     @Override
     public Proveedor crear(ProveedorForm form) {
-        if (proveedorRepository.existsByRuc(form.getRuc())) {
+        if (proveedorRepository.existsByRucIgnoreCase(form.getRuc())) {
             throw new BusinessException("Ya existe un proveedor registrado con ese RUC");
         }
         Proveedor proveedor = new Proveedor();
@@ -54,7 +54,7 @@ public class ProveedorServiceImpl implements ProveedorService {
     @Override
     public Proveedor actualizar(Long id, ProveedorForm form) {
         Proveedor proveedor = obtenerPorId(id);
-        if (proveedorRepository.existsByRucAndIdNot(form.getRuc(), id)) {
+        if (proveedorRepository.existsByRucIgnoreCaseAndIdNot(form.getRuc(), id)) {
             throw new BusinessException("Ya existe otro proveedor registrado con ese RUC");
         }
         aplicarDatos(proveedor, form);
