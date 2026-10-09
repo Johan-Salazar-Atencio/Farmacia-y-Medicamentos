@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lote - Farmacia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/layout :: nav}"></div>
+<div class="container">
+    <h2 th:text="${form.id == null} ? 'Registrar lote' : 'Editar lote'"></h2>
+    <div th:replace="~{fragments/layout :: mensajes}"></div>
+    <form th:action="@{/lotes/guardar}" th:object="${form}" method="post" class="row g-3" novalidate>
+        <input type="hidden" th:field="*{id}"/>
+        <div class="col-md-6">
+            <label class="form-label">Medicamento *</label>
+            <select class="form-select" th:field="*{medicamentoId}" th:disabled="${form.id != null}"
+                    th:classappend="${#fields.hasErrors('medicamentoId')} ? 'is-invalid'">
+                <option value="">Seleccione un medicamento</option>
+                <option th:each="m : ${medicamentos}" th:value="${m.id}" th:text="${m.codigo + ' - ' + m.nombre}"></option>
+            </select>
+            <input type="hidden" th:if="${form.id != null}" th:field="*{medicamentoId}"/>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('medicamentoId')}" th:errors="*{medicamentoId}"></div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">N° de lote *</label>
+            <input type="text" class="form-control" th:field="*{numeroLote}" maxlength="50"
+                   th:classappend="${#fields.hasErrors('numeroLote')} ? 'is-invalid'"/>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('numeroLote')}" th:errors="*{numeroLote}"></div>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Fecha de vencimiento *</label>
+            <input type="date" class="form-control" th:field="*{fechaVencimiento}"
+                   th:classappend="${#fields.hasErrors('fechaVencimiento')} ? 'is-invalid'"/>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('fechaVencimiento')}" th:errors="*{fechaVencimiento}"></div>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Cantidad *</label>
+            <input type="number" min="1" class="form-control" th:field="*{cantidad}"
+                   th:classappend="${#fields.hasErrors('cantidad')} ? 'is-invalid'"/>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"></div>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Id de proveedor (opcional)</label>
+            <input type="number" min="1" class="form-control" th:field="*{proveedorId}"/>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a th:href="@{/lotes}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>
