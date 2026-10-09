@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ProveedorRepository extends JpaRepository<Proveedor, Long> {
 
-    boolean existsByRuc(String ruc);
+    boolean existsByRucIgnoreCase(String ruc);
 
-    boolean existsByRucAndIdNot(String ruc, Long id);
+    boolean existsByRucIgnoreCaseAndIdNot(String ruc, Long id);
 
     List<Proveedor> findAllByOrderByRazonSocialAsc();
 
