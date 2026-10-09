@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,6 +18,7 @@ import java.time.LocalDate;
  */
 @Entity
 @Table(name = "lotes_medicamento")
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -44,6 +48,14 @@ public class LoteMedicamento {
 
     @Column(name = "fecha_ingreso", nullable = false, updatable = false)
     private LocalDate fechaIngreso;
+
+    @CreatedBy
+    @Column(name = "creado_por", updatable = false, length = 50)
+    private String creadoPor;
+
+    @LastModifiedBy
+    @Column(name = "modificado_por", length = 50)
+    private String modificadoPor;
 
     @Column(name = "precio_compra", precision = 10, scale = 2)
     private BigDecimal precioCompra;

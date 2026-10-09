@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,6 +19,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "proveedores")
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -47,6 +51,14 @@ public class Proveedor {
 
     @Column(name = "fecha_registro", nullable = false, updatable = false)
     private LocalDateTime fechaRegistro;
+
+    @CreatedBy
+    @Column(name = "creado_por", updatable = false, length = 50)
+    private String creadoPor;
+
+    @LastModifiedBy
+    @Column(name = "modificado_por", length = 50)
+    private String modificadoPor;
 
     @OneToMany(mappedBy = "proveedor")
     private List<LoteMedicamento> lotes = new ArrayList<>();
