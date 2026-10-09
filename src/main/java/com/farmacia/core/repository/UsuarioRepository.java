@@ -23,9 +23,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     List<Usuario> findAllByOrderByUsernameAsc();
 
-    @Query("SELECT DISTINCT u FROM Usuario u JOIN FETCH u.roles WHERE u.id = :id")
+    @Query("SELECT DISTINCT u FROM Usuario u LEFT JOIN FETCH u.roles WHERE u.id = :id")
     Optional<Usuario> findByIdConRoles(@Param("id") Long id);
 
-    @Query("SELECT DISTINCT u FROM Usuario u JOIN FETCH u.roles ORDER BY u.username ASC")
+    @Query("SELECT DISTINCT u FROM Usuario u LEFT JOIN FETCH u.roles ORDER BY u.username ASC")
     List<Usuario> listarConRoles();
 }
