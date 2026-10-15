@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<nav th:fragment="nav" class="navbar navbar-expand navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/medicamentos}">Farmacia · Medicamentos</a>
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" th:href="@{/medicamentos}">Medicamentos</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/categorias}">Categorías</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/lotes}">Lotes</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/auditoria}">Auditoría</a></li>
+        </ul>
+        <!-- Temporal: usuario que quedará registrado en la auditoría (hasta integrar auth-core) -->
+        <form class="d-flex gap-2" method="post" th:action="@{/usuario}">
+            <input class="form-control form-control-sm" type="text" name="usuario" placeholder="Usuario actual"
+                   required>
+            <button class="btn btn-sm btn-outline-light" type="submit">Fijar</button>
+        </form>
+    </div>
+</nav>
+
+<div th:fragment="mensajes">
+    <div class="alert alert-success" th:if="${mensaje != null}" th:text="${mensaje}"></div>
+    <div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
+</div>
+
+<footer th:fragment="footer" class="text-center text-muted small my-4">
+    Farmacia y Medicamentos · medicamentos-service
+</footer>
+
+</body>
+</html>
